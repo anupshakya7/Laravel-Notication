@@ -35,5 +35,9 @@ return [
         'key'=>env('VONAGE_KEY'),
         'secret'=>env('VONAGE_SECRET'),
         'sms_from'=>env('VONAGE_SMS_FROM'),
+    ],
+
+    'typeform'=>[
+        'access_token'=>env('TYPEFORM_ACCESS_TOKEN')
     ]
 ];
