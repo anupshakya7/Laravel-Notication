@@ -3,16 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Notifications\UserFollowNotification;
 use App\Notifications\WelcomeNotification;
+use App\Notifications\WelcomeSmsNotfication;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 
 class HomeController extends Controller
 {
+<<<<<<< HEAD
     public function index(){
         return view('welcome');
     }
 
+=======
+>>>>>>> 45317f6ee1f3cafab5591d94cd41d61a217a2f64
     public function mailNotification(){
         $users = User::all();
 
@@ -25,11 +30,35 @@ class HomeController extends Controller
             foreach($users as $user){
                 $user->notify(new WelcomeNotification($post));
             }
-          
-            dd("done");
+            
+            return "Done";
         }catch(\Exception $e){
-            dd($e->getMessage());
+            return $e->getMessage();
         }
+    }
+
+    public function databaseNotification(){
+
+        if(auth()->user()){
+            $user = User::find(2);
+
+            auth()->user()->notify(new UserFollowNotification($user));
+            dd("done");
+        }
+       
+    }
+
+    public function markAsRead($id){
+        if($id){
+            auth()->user()->notifications->where('id',$id)->markAsRead();
+        }
+
+        return back();
+    }
+
+    public function smsNotification(){
+        $user = User::first();
+        $user->notify(new WelcomeSmsNotfication);
 
         return view('welcome');
     }

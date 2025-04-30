@@ -43,4 +43,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function routeNotificationForSlack(){
+        return 'https://hooks.slack.com/services/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';
+    }
+
+    public function routeNotificationForNexmo($notification){
+        return $this->phone_number;
+    }
 }
