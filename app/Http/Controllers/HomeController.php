@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Notification;
 class HomeController extends Controller
 {
     public function index(){
+        return view('welcome');
+    }
+
+    public function mailNotification(){
         $users = User::all();
 
         $post = [

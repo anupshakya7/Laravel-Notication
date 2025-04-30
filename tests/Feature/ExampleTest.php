@@ -14,6 +14,17 @@ class ExampleTest extends TestCase
     {
         $response = $this->get('/');
 
+        // $response->assertSee('Documentation');
         $response->assertStatus(200);
     }
+
+    // public function test_the_homepage_contains_symfony(){
+    //     $response = $this->get('/');
+
+    //     $response->assertSee("Symfony");
+
+    //     $response->assertStatus(200);
+    // }
+
+
 }

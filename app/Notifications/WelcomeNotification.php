@@ -37,7 +37,7 @@ class WelcomeNotification extends Notification implements ShouldQueue
     {
         return (new MailMessage)
                     ->line($this->post['title'])
-                    ->action('Notification Action', url('/'.$this->post['slug']))
+                    ->action('Notification Action', url('/'.$this->po st['slug']))
                     ->line('Thank you for using our application!');
     }
 
