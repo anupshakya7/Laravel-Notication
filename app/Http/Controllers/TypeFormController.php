@@ -205,6 +205,7 @@ class TypeFormController extends Controller
         if (!$hasCountryField) {
             try {
                 $formId = $formData['id'];
+                
                 $formGender = $formData['fields'][1]['ref'];
                 $formAfterGender = $formData['fields'][2]['ref'];
 
@@ -227,10 +228,9 @@ class TypeFormController extends Controller
                     ],
                 ];
 
-
                 foreach ($selectedCountries as $country) {
                     $countryData = collect($countriesState)->firstWhere('name', $country);
-
+                    
                     if (empty($countryData) || empty($countryData['states'])) {
                         continue;
                     }
@@ -316,6 +316,7 @@ class TypeFormController extends Controller
                 ];
 
                 $formFields = $formData['fields'];
+
                 $formData['fields']=[];
                 
                 foreach($formFields as $key=>$formField){
@@ -329,7 +330,7 @@ class TypeFormController extends Controller
                 }
 
                 foreach($formFields as $key=>$formField){
-                    if($key > 2){
+                    if($key >= 2){
                         $formData['fields'][] = $formField;
                     }
                 }
@@ -337,12 +338,9 @@ class TypeFormController extends Controller
                 foreach ($logic as $condition) {
                     $formData['logic'][] = $condition;
                 }
-                // $formFields['logic'][] = $formFields;
-
-                // $typeformPayload = json_encode($formStructure,JSON_PRETTY_PRINT);
 
                 $updateForm = Http::withToken($accessToken)->put("https://api.typeform.com/forms/{$formId}", $formData);
-                dd($updateForm->json());
+
                 if($updateForm->successful()){
                     return 'Succesfully Added Country and State Fields';
                 }else{
