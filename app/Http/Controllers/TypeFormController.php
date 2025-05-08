@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Country;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use PHPUnit\Framework\Constraint\Count;
 
 class TypeFormController extends Controller
 {
@@ -14,6 +17,10 @@ class TypeFormController extends Controller
         $countryStates = json_decode($json, true);
 
         return view('typeform.index', compact('countryStates'));
+    }
+
+    public function index2(){
+        return view('typeform.index2');
     }
 
     public function getForm($formId)
@@ -351,6 +358,38 @@ class TypeFormController extends Controller
             }
         } else {
             return "Already Exists";
+        }
+    }
+
+    public function edit2(Request $request){
+        $formData = json_decode($request->typeform_data);
+
+        try{
+            $formId = $formData->id;
+
+            $formGender = $formData->fields[1]->ref;
+            $formAfterGender = $formData->fields[2]->ref;
+
+            $countryStates = Country::with(['country','country.state'])->select('id','country')->where('level',0)->get();
+            $accessToken = config('services.typeform.access_token');
+            
+            $fields = [];
+            $logic = [];
+            $logicCountryState = [];
+
+            $regions = $countryStates->map(fn($region)=>['label'=>$region->country])->toArray();
+
+            $fields[] = [
+                "ref" => "region_field_ref",
+                "title" => "Which Region are your from?",
+                "type" => "dropdown",
+                "properties" => [
+                    "choices" => $regions
+                ],
+            ];
+            
+        }catch(Exception $e){
+            return $e->getMessage();
         }
     }
 }
