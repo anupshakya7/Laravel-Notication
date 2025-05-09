@@ -32,9 +32,11 @@ Route::get('/dashboard', function () {
 Route::prefix('typeform')->name('typeform.')->group(function(){
     Route::get('form',[TypeFormController::class,'index'])->name('form');
     Route::get('form2',[TypeFormController::class,'index2'])->name('form2');
+    Route::get('form3',[TypeFormController::class,'index3'])->name('form3');
     Route::get('getForm/{formId}',[TypeFormController::class,'getForm'])->name('form.get');
     Route::post('form/edit',[TypeFormController::class,'edit'])->name('form.edit');
     Route::post('form2/edit',[TypeFormController::class,'edit2'])->name('form2.edit');
+    Route::post('form3/edit',[TypeFormController::class,'edit3'])->name('form3.edit');
 });
 
 
