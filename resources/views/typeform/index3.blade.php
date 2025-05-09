@@ -13,13 +13,13 @@
     #check_country{
         display: none;
         position: absolute;
-        background: #6c5f5f5c;
-        color: #000000;
+        background: rgb(142 15 15 / 89%);
+        color: #fff;
         padding: 5px 10px;
         width: 300px;
         right: 0;
         top: 48px;
-        transition: 0.5sease-in-out;
+        transition: 0.5s ease-in-out;
         border-radius: 4px;
     }
 </style>
